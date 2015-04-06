@@ -2,8 +2,15 @@
   "name": "swaprig10",
   "version": "0.1.0",
   "private": true,
-  "scripts": {
-    "start": "node ./bin/www"
+  "main": "public/javascript/app.js",
+
+  "devDependencies":{
+    "browserify": "^6.2.0",
+    "envify": "^3.0.0",
+    "jest-cli": "~0.1.17",
+    "reactify": "^0.15.2",
+    "uglify-js": "~2.4.15",
+    "watchify": "^2.1.1"
   },
   "dependencies": {
     "body-parser": "~1.12.0",
@@ -12,6 +19,24 @@
     "ejs": "~2.3.1",
     "express": "~4.12.2",
     "morgan": "~1.5.1",
-    "serve-favicon": "~2.2.0"
+    "serve-favicon": "~2.2.0",
+    "react": "latest",
+    "flux" : "latest",
+    "keymirror": "latest",
+    "object-assign": "^1.0.0",
+    "react-router": "latest",
+    "passport": "latest",
+    "browserify": "latest"
+  },
+  "scripts": {
+  "start": "watchify -o public/javascript/bundle.js -v -d public/javascripts/app.js",
+    "build": "browserify . -t [envify --NODE_ENV=development] | uglifyjs -cm > public/javascripts/bundle.min.js",
+    "test": "jest"
+},
+  "browserify": {
+    "transform":[ "reactify", "envify"]
+  },
+  "test": {
+    "rootDir": "./public/javascripts"
   }
 }
